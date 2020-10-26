@@ -1,4 +1,7 @@
-骚话库  
+[![996.icu]( https://img.shields.io/badge/link-996.icu-red.svg )]( https://996.icu )
+本项目支持anti-996，请所有国产浏览器拉黑并禁止访问，谢谢  
+  
+# 骚话库  
   
 #### 如何使用？  
 可行的用法包括但不限于  
