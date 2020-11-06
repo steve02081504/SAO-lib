@@ -1,0 +1,10 @@
+<div id="show">
+</div>
+<br>
+<script>
+var fs = require("fs");
+fs.readFile(".\SAO-lib.txt",function(error,data){
+    var result = data.toString().split(/[\n]/);
+    $("#show").html(result[ Math.random()*result.length | 0 ]);
+});
+</script>
