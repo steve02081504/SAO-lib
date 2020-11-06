@@ -4,7 +4,7 @@
 <br>
 <script>
 var fs = require("fs");
-fs.readFile(".\SAO-lib.txt",function(error,data){
+fs.readFile("https://raw.githubusercontent.com/steve02081504/SAO-lib/master/SAO-lib.txt",function(error,data){
     var result = data.toString().split(/[\n]/);
     $("#show").html(result[ Math.random()*result.length | 0 ]);
 });
