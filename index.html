@@ -10,5 +10,5 @@ $.ajax({
 function successLoad(data){
     var result = data.toString().split(/[\n]/);
     $("#show").html(result[ Math.random()*result.length | 0 ]);
-});
+}
 </script>
