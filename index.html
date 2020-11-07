@@ -1,11 +1,13 @@
-测试
-<br>
 <div id="show">
 </div>
 <br>
 <script>
-var fs = require("fs");
-fs.readFile("https://raw.githubusercontent.com/steve02081504/SAO-lib/master/SAO-lib.txt",function(error,data){
+$.ajax({
+           url: 'https://raw.githubusercontent.com/steve02081504/SAO-lib/master/SAO-lib.txt',
+           scriptCharset: 'utf-8',
+           success: successLoad
+       });
+function successLoad(data){
     var result = data.toString().split(/[\n]/);
     $("#show").html(result[ Math.random()*result.length | 0 ]);
 });
