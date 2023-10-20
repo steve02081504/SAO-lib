@@ -1,14 +1,53 @@
-<div id="show">
-</div>
+<div id="show"></div>
+<button onclick="Update()">Update</button>
 <br>
 <script>
-$.ajax({
-           url: 'https://raw.githubusercontent.com/steve02081504/SAO-lib/master/SAO-lib.txt',
-           scriptCharset: 'utf-8',
-           success: successLoad
-       });
-function successLoad(data){
-    var result = data.toString().split(/[\n]/);
-    $("#show").html(result[ Math.random()*result.length | 0 ]);
+//read if file is json
+let SAOdata = null;
+function RandSAO(){
+	return SAOdata[ Math.random()*SAOdata.length | 0 ];
 }
+function Update(){
+	let show = document.getElementById("show");
+	if (show !== null) {
+		show.innerHTML = RandSAO();
+	}
+}
+fetch('https://raw.githubusercontent.com/steve02081504/SAO-lib/master/SAO-lib.txt',{
+	method: 'GET',
+	mode: 'cors',
+}).then(function (response) {
+	//if response.type is "cors", get the json file from response.body as ReadableStream
+	if (response.type === "cors") {
+		//ReadableStream init
+		const reader = response.body.getReader();
+		//set show to loading
+		document.getElementById("show").innerHTML = "loading";
+		//buffer init
+		let buffer = "";
+		//ReadableStream read to BenchmarkData as JSON
+		reader.read().then(function processText({ done, value }) {
+			if (done) {
+				//if ReadableStream read done, set SAOdata to buffer
+				SAOdata = buffer.split(/[\n]/);
+				//call the update function
+				Update();
+				return;
+			}
+			//decode the ReadableStream to string
+			let text = new TextDecoder("utf-8").decode(value);
+			//log the text
+			console.log(text);
+			//append the text to buffer
+			buffer += text;
+			//read next
+			return reader.read().then(processText);
+		});
+		//if show is not null, set show to loadingfailed
+		let show = document.getElementById("show");
+		if (show !== null) {
+			show.innerHTML = "loading failed";
+		}
+	}
+});
 </script>
